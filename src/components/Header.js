@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,40 +9,26 @@ import { ReactComponent as ReactLogo } from '../covid-19.svg';
 const useStyles = makeStyles((theme) => ({
     root: {
         marginBottom: '30px'
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
+    }
   }));
 
 export default function Header() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
                     <Link to="/">
-                        <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                        <Button>
                             <ReactLogo />
                         </Button>
                     </Link>
-                    <Link to="/countries">
-                        <Button>Countries</Button>
-                    </Link>
                     <Link to="/states">
-                        <Button>States</Button>
+                        <Button className="menuBtn">States</Button>
+                    </Link>
+                    <Link to="/countries">
+                        <Button className="menuBtn">Countries</Button>
                     </Link>
                 </Toolbar>
             </AppBar>

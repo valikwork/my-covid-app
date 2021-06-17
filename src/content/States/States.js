@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
-import { getAllStatesData } from '../../redux/actions/covidActions';
+import { getAllStatesData, GET_ALL_STATES_DATA } from '../../redux/actions/covidActions';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,12 +10,20 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import store from '../../redux/store';
 import { Link } from "react-router-dom";
+import numberWithSpaces from '../../functions/numberWithSpaces'
 
 const DataLayout = () =>{
-    const data = store.getState().data
-    return(
+    const data = useSelector(state => state.data)
+    const dataType = useSelector(state => state.dataType)
+    if(dataType === GET_ALL_STATES_DATA){
+        data.forEach(each => {
+            for (let prop in each) {
+                each[prop] = numberWithSpaces(each[prop])
+            }
+        })
+        
+        return(
             <TableContainer component={Paper}>
                 <Table size="small" aria-label="a dense table">
                     <TableHead>
@@ -46,7 +54,11 @@ const DataLayout = () =>{
                     </TableBody>
                 </Table>
             </TableContainer>
-    )
+        )
+    } else {
+        return null
+    }
+    
 }
 
 function States() {
@@ -55,7 +67,7 @@ function States() {
     const isLoading = useSelector(state => state.isLoading)
     useEffect(() => {
         dispatch(getAllStatesData())
-    }, [])
+    }, [dispatch])
 
     return (
         <Container>

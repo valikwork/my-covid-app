@@ -40,3 +40,30 @@
   min-height: 100vh;
   flex-direction: column
 }
+.logo{
+  animation-name: spin;
+  animation-duration: 10000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.logo path{
+  fill: #fff;
+  transition: fill .4s ease;;
+}
+.logo:hover path{
+  fill: rgba(202, 20, 20, 0.74);
+  transition: fill .4s ease;;
+}
+.menuBtn span{
+  text-decoration: none;
+  color: #fff;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(0deg);
+  }
+  to {
+      transform:rotate(360deg);
+  }
+}
