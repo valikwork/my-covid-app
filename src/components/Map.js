@@ -1,3 +1,4 @@
+import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer } from "react-leaflet";
 import IconWithText from './IconWithText';
 
