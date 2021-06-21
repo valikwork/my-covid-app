@@ -11,7 +11,6 @@ export default function Map({ lat, long, cases, style, data }) {
     } else {
         posToShow = defaultPosition
     }
-    console.log(data[0].countryInfo);
 
     return (
         <MapContainer className="map__container" style={style} center={posToShow} zoom={10} scrollWheelZoom={false}>
