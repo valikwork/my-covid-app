@@ -68,8 +68,8 @@ export const getAllStatesData = () => {
         dispatch(getAllStatesDataStart())
         axios.get(`${process.env.REACT_APP_API_V3_URL}/states`)
             .then(res => {
-                console.log('getAllStatesData', res.data);
-                dispatch(getAllStatesDataSuccess(res.data))
+                console.log('getAllStatesData', JSON.parse(JSON.stringify(res.data)));
+                dispatch(getAllStatesDataSuccess(JSON.parse(JSON.stringify(res.data))))
             })
             .catch(err => {
                 dispatch(getAllStatesDataFail(err.error))
@@ -141,7 +141,7 @@ export const getAllCountriesData = () => {
         dispatch(getAllCountriesDataStart())
         axios.get(`${process.env.REACT_APP_API_V3_URL}/countries`)
             .then(res => {
-                console.log('getAllCountriesData', res.data);
+                console.log(res.data);
                 dispatch(getAllCountriesDataSuccess(res.data))
             })
             .catch(error => {
@@ -155,6 +155,7 @@ export const getAllCountriesDataStart = () => {
     }
 }
 export const getAllCountriesDataSuccess = (data) => {
+    console.log(data);
     return {
         type: GET_ALL_COUNTRIES_DATA_SUCCESS,
         payload: {

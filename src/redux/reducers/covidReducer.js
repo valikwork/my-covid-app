@@ -95,6 +95,7 @@ function covidReducer(state = initialState, action){
                 isLoading: true
             }
         case GET_ALL_COUNTRIES_DATA_SUCCESS:
+            console.log(action);
             return {
                 ...state,
                 isLoading: false,

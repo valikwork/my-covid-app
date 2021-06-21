@@ -1,5 +1,5 @@
-import { Container } from '@material-ui/core'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Container, Input } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import { getAllCountriesData, GET_ALL_COUNTRIES_DATA } from '../../redux/actions/covidActions';
@@ -12,18 +12,31 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from "react-router-dom";
 import numberWithSpaces from '../../functions/numberWithSpaces'
+import Search from '../../components/Search';
+import Map from '../../components/Map';
 
 const DataLayout = () => {
     const data = useSelector(state => state.data)
+    console.log(data);
     const dataType = useSelector(state => state.dataType)
+    const [filteredData, setFilteredData] = useState(Array.isArray(data) ? [...data] : [])
+
     if(dataType === GET_ALL_COUNTRIES_DATA){
         data.forEach(each => {
             for (let prop in each) {
                 each[prop] = numberWithSpaces(each[prop])
             }
         })
+
+        const searchHandler = (val) => {
+            const newData = data.filter(country => country.country.toLowerCase().includes(val.toLowerCase()))
+            setFilteredData([...newData]);
+        }
+        
         return (
             <TableContainer component={Paper}>
+                <Map style={{ width: '100%' }} data={filteredData} />
+                <Search searchHandler={searchHandler} />
                 <Table size="small" aria-label="a dense table">
                     <TableHead>
                     <TableRow>
@@ -36,7 +49,7 @@ const DataLayout = () => {
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {Array.isArray(data) && data.map((row) => {
+                    {Array.isArray(filteredData) && filteredData.map((row) => {
                         return(
                             <TableRow key={row.country}>
                                 <TableCell component="th" scope="row">
@@ -69,7 +82,6 @@ export default function Countries() {
     }, [dispatch])
     
     return (
-        
         <Container>
             {isLoading ? <LoadingAnimation/> : <DataLayout/>}
         </Container>

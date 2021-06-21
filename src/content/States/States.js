@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import { getAllStatesData, GET_ALL_STATES_DATA } from '../../redux/actions/covidActions';
@@ -12,19 +12,27 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Link } from "react-router-dom";
 import numberWithSpaces from '../../functions/numberWithSpaces'
+import Search from '../../components/Search';
 
 const DataLayout = () =>{
     const data = useSelector(state => state.data)
     const dataType = useSelector(state => state.dataType)
+    const [filteredData, setFilteredData] = useState(data)
     if(dataType === GET_ALL_STATES_DATA){
         data.forEach(each => {
             for (let prop in each) {
                 each[prop] = numberWithSpaces(each[prop])
             }
         })
+
+        const searchHandler = (val) => {
+            const newData = data.filter(state => state.state.toLowerCase().includes(val.toLowerCase()))
+            setFilteredData([...newData]);
+        }
         
         return(
             <TableContainer component={Paper}>
+                <Search searchHandler={searchHandler} />
                 <Table size="small" aria-label="a dense table">
                     <TableHead>
                     <TableRow>
@@ -37,7 +45,7 @@ const DataLayout = () =>{
                     </TableRow>
                     </TableHead>
                     <TableBody>
-                    {Array.isArray(data) && data.map((row) => {
+                    {Array.isArray(filteredData) && filteredData.map((row) => {
                         return(
                             <TableRow key={row.state}>
                                 <TableCell component="th" scope="row">

@@ -22,7 +22,7 @@ const DataLayout = () => {
             <div className="country-details">
                 <Image
                     src={data.countryInfo.flag}
-                    style={{ width: '250px', height: '167px', paddingTop: '0', marginRight: '30px' }}
+                    style={{ maxWidth: '250px', width: "100%", height: '167px', paddingTop: '0', marginRight: '30px', marginBottom: '30px' }}
                 />
                 <Map lat={data.countryInfo.lat} cases={numberWithSpaces(data.cases)} long={data.countryInfo.long} />
             </div>
@@ -38,7 +38,6 @@ const DataLayout = () => {
                             </ListItem>
                         )
                     }
-                    
                 })}
             </List>
             </>
