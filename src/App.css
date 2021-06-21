@@ -59,6 +59,24 @@
   color: #fff;
 }
 
+.customMarker{
+  color: #fff;
+  border-radius: 50%;
+  background-color: rgba(202, 20, 20, 0.74);;
+}
+.country-details{
+  display: flex;
+}
+.map__container{
+  height: 167px;
+  width: 500px;
+}
+.iconText{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+}
 @keyframes spin {
   from {
       transform:rotate(0deg);

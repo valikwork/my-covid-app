@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Image from 'material-ui-image'
 import numberWithSpaces from '../../functions/numberWithSpaces'
+import Map from '../../components/Map'
 const shortid = require('shortid');
 
 const DataLayout = () => {
@@ -18,14 +19,16 @@ const DataLayout = () => {
     if(dataType === GET_ONE_COUNTRY_DATA){
         return (
             <>
-            <Image
-                src={data.countryInfo.flag}
-                style={{ width: '250px', height: '167px', paddingTop: '0' }}
-            />
+            <div className="country-details">
+                <Image
+                    src={data.countryInfo.flag}
+                    style={{ width: '250px', height: '167px', paddingTop: '0', marginRight: '30px' }}
+                />
+                <Map lat={data.countryInfo.lat} cases={numberWithSpaces(data.cases)} long={data.countryInfo.long} />
+            </div>
+            
             <List>
                 {data && Object.entries(data).map(eachData => {
-                    
-                    console.log('eachData', eachData);
                     if(eachData[0] !== "countryInfo"){
                         const formatedKeyName = eachData[0].replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); })
                         const value = eachData[1];
@@ -55,12 +58,14 @@ function OneCountry() {
     }, [dispatch, name])
     
     return (
+        <>
         <Container component={Paper}>
             <Typography variant="h1" style={{ marginBottom: '20px' }}>
                 {name}
             </Typography>
             {isLoading ? <LoadingAnimation /> : <DataLayout />}
         </Container>
+        </>
     )
 }
 
