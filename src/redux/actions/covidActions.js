@@ -25,13 +25,17 @@ export const GET_ONE_COUNTRY_DATA_START = 'GET_ONE_COUNTRY_DATA_START'
 export const GET_ONE_COUNTRY_DATA_SUCCESS = 'GET_ONE_COUNTRY_DATA_SUCCESS'
 export const GET_ONE_COUNTRY_DATA_FAIL = 'GET_ONE_COUNTRY_DATA_FAIL'
 
+export const GET_ALL_VACCINE_DATA = 'GET_ALL_VACCINE_DATA'
+export const GET_ALL_VACCINE_DATA_START = 'GET_ALL_VACCINE_DATA_START'
+export const GET_ALL_VACCINE_DATA_SUCCESS = 'GET_ALL_VACCINE_DATA_SUCCESS'
+export const GET_ALL_VACCINE_DATA_FAIL = 'GET_ALL_VACCINE_DATA_FAIL'
+
 
 export const getAllData = () => {
     return dispatch => {
         dispatch(getAllDataStart());
         axios.get(`${process.env.REACT_APP_API_V3_URL}/all`)
             .then(res => {
-                console.log('getAllData', res.data);
                 dispatch(getAllDataSuccess(res.data))
             })
             .catch(err => {
@@ -47,17 +51,13 @@ export const getAllDataStart = () => {
 export const getAllDataSuccess = (data) => {
     return {
         type: GET_ALL_DATA_SUCCESS,
-        payload: {
-            data
-        }
+        payload: data
     }
 }
 export const getAllDataFail = (error) => {
     return {
         type: GET_ALL_DATA_FAIL,
-        payload: {
-            error
-        }
+        payload: error
     }
 }
 
@@ -68,7 +68,6 @@ export const getAllStatesData = () => {
         dispatch(getAllStatesDataStart())
         axios.get(`${process.env.REACT_APP_API_V3_URL}/states`)
             .then(res => {
-                console.log('getAllStatesData', JSON.parse(JSON.stringify(res.data)));
                 dispatch(getAllStatesDataSuccess(JSON.parse(JSON.stringify(res.data))))
             })
             .catch(err => {
@@ -84,17 +83,13 @@ export const getAllStatesDataStart = () => {
 export const getAllStatesDataSuccess = (data) => {
     return {
         type: GET_ALL_STATES_DATA_SUCCESS,
-        payload: {
-            data
-        }
+        payload: data
     }
 }
 export const getAllStatesDataFail = (error) => {
     return {
         type: GET_ALL_STATES_DATA_FAIL,
-        payload: {
-            error
-        }
+        payload: error
     }
 }
 
@@ -127,9 +122,7 @@ export const getOneStateDataSuccess = (data) => {
 export const getOneStateDataFail = (error) => {
     return {
         type: GET_ONE_STATE_DATA_FAIL,
-        payload: {
-            error
-        }
+        payload: error
     }
 }
 
@@ -141,7 +134,6 @@ export const getAllCountriesData = () => {
         dispatch(getAllCountriesDataStart())
         axios.get(`${process.env.REACT_APP_API_V3_URL}/countries`)
             .then(res => {
-                console.log(res.data);
                 dispatch(getAllCountriesDataSuccess(res.data))
             })
             .catch(error => {
@@ -155,20 +147,15 @@ export const getAllCountriesDataStart = () => {
     }
 }
 export const getAllCountriesDataSuccess = (data) => {
-    console.log(data);
     return {
         type: GET_ALL_COUNTRIES_DATA_SUCCESS,
-        payload: {
-            data
-        }
+        payload: data
     }
 }
 export const getAllCountriesDataFail = (error) => {
     return {
         type: GET_ALL_COUNTRIES_DATA_FAIL,
-        payload: {
-            error
-        }
+        payload: error
     }
 }
 
@@ -177,7 +164,6 @@ export const getOneCountryData = (name) => {
         dispatch(getOneCountryDataStart())
         axios.get(`${process.env.REACT_APP_API_V3_URL}/countries/${name}`)
             .then(res => {
-                console.log('getOneCountryData', res.data);
                 dispatch(getOneCountryDataSuccess(res.data))
             })
             .catch(error => {
@@ -201,11 +187,38 @@ export const getOneCountryDataSuccess = (data) => {
 export const getOneCountryDataFail = (error) => {
     return {
         type: GET_ONE_COUNTRY_DATA_FAIL,
-        payload: {
-            error
-        }
+        payload: error
     }
 }
 
+//////
 
-
+export const getAllVaccineData = () => {
+    return dispatch => {
+        dispatch(getAllVaccineDataStart())
+        axios.get(`${process.env.REACT_APP_API_V3_URL}/vaccine`)
+            .then(res => {
+                dispatch(getAllVaccineDataSuccess(res.data))
+            })
+            .catch(error => {
+                dispatch(getAllVaccineDataFail(error))
+            })
+    }
+}
+export const getAllVaccineDataStart = () => {
+    return {
+        type: GET_ALL_VACCINE_DATA_START
+    }
+}
+export const getAllVaccineDataSuccess = (data) => {
+    return {
+        type: GET_ALL_VACCINE_DATA_SUCCESS,
+        payload: data
+    }
+}
+export const getAllVaccineDataFail = (error) => {
+    return {
+        type: GET_ALL_VACCINE_DATA_FAIL,
+        payload: error
+    }
+}

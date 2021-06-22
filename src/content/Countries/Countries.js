@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Input } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingAnimation from '../../components/LoadingAnimation';
 import { getAllCountriesData, GET_ALL_COUNTRIES_DATA } from '../../redux/actions/covidActions';
@@ -17,12 +17,12 @@ import Map from '../../components/Map';
 
 const DataLayout = () => {
     const data = useSelector(state => state.data)
-    console.log(data);
     const dataType = useSelector(state => state.dataType)
     const [filteredData, setFilteredData] = useState(Array.isArray(data) ? [...data] : [])
 
-    if(dataType === GET_ALL_COUNTRIES_DATA){
+    if(dataType === GET_ALL_COUNTRIES_DATA && Array.isArray(data)){
         data.forEach(each => {
+            console.log(each);
             for (let prop in each) {
                 each[prop] = numberWithSpaces(each[prop])
             }
@@ -35,7 +35,7 @@ const DataLayout = () => {
         
         return (
             <TableContainer component={Paper}>
-                <Map style={{ width: '100%' }} data={filteredData} />
+                <Map style={{ width: '100%', marginBottom: '30px' }} data={data} />
                 <Search searchHandler={searchHandler} />
                 <Table size="small" aria-label="a dense table">
                     <TableHead>

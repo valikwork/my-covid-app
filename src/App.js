@@ -12,6 +12,9 @@ import './App.css';
 import MainContainer from './content/MainContainer'
 import OneState from './content/States/OneState'
 import OneCountry from './content/Countries/OneCountry'
+import Vaccines from './content/Vaccines/Vaccines'
+import VaccinesCountries from './content/Vaccines/VaccinesCountries'
+import VaccinesOneCountry from './content/Vaccines/VaccinesOneCountry'
 
 
 function App() {
@@ -25,26 +28,49 @@ function App() {
                 <Home />
               </MainContainer>
             </Route>
+
             <Route exact path="/countries">
               <MainContainer>
                 <Countries />
               </MainContainer>
             </Route>
+
             <Route exact path="/countries/:name">
               <MainContainer>
                 <OneCountry/>
               </MainContainer>
             </Route>
+
             <Route exact path="/states">
               <MainContainer>
                 <States />
               </MainContainer>
             </Route>
+
             <Route exact path="/states/:name">
               <MainContainer>
                 <OneState />
               </MainContainer>
             </Route>
+            
+            <Route exact path="/vaccines" >
+              <MainContainer> 
+                <Vaccines />
+              </MainContainer>
+            </Route>
+            
+            <Route exact path="/vaccines/countries" >
+              <MainContainer> 
+                <VaccinesCountries />
+              </MainContainer>
+            </Route>
+            
+            <Route exact path="/vaccines/countries:name" >
+              <MainContainer> 
+                <VaccinesOneCountry />
+              </MainContainer>
+            </Route>
+
         </Switch>
         <Footer />
       </div>

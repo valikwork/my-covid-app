@@ -30,6 +30,9 @@ export default function Header() {
                     <Link to="/countries">
                         <Button className="menuBtn">Countries</Button>
                     </Link>
+                    <Link to="/vaccines">
+                        <Button className="menuBtn">Vaccines</Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </div>
