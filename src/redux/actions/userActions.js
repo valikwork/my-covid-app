@@ -18,8 +18,9 @@ export const registerUser = (userInfo) => {
   return (dispatch) => {
     dispatch(registerStart());
     axios
-      .post("http://localhost:3000/api/auth/register", {
-        name: userInfo.name,
+      .post("/api/auth/register", {
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
         email: userInfo.email,
         password: userInfo.password,
       })
@@ -38,6 +39,7 @@ export const registerStart = () => {
   };
 };
 export const registerSuccess = (user) => {
+  localStorage.setItem("covidapp-userID", user.id);
   return {
     type: REGISTER_USER_SUCCESS,
     payload: user,
@@ -56,7 +58,7 @@ export const loginUser = (userInfo) => {
   return (dispatch) => {
     dispatch(loginStart());
     axios
-      .post("http://localhost:3000/api/auth/login", {
+      .post("/api/auth/login", {
         email: userInfo.email,
         password: userInfo.password,
       })
@@ -76,7 +78,6 @@ export const loginStart = () => {
   };
 };
 export const loginSuccess = (user) => {
-  console.log("loginSuccess userID", user);
   localStorage.setItem("covidapp-userID", user.user);
   return {
     type: LOGIN_USER_SUCCESS,
@@ -106,7 +107,6 @@ export const getUserInfo = () => {
     axios
       .get("/api/user/profile")
       .then((res) => {
-        console.log("userAction res", res.data);
         dispatch(getUserInfoSuccess(res.data));
       })
       .catch((err) => {
@@ -122,7 +122,7 @@ export const getUserInfoStart = () => {
 };
 export const getUserInfoSuccess = (user) => {
   return {
-    type: GET_USER_INFO_START,
+    type: GET_USER_INFO_SUCCESS,
     payload: user,
   };
 };

@@ -22,6 +22,7 @@ function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
   const isAuthenticated = !!currentUser;
+  const hasUserIdInLocalStore = localStorage.getItem("covidapp-userID");
 
   // useEffect(() => {
   //   console.log("currentUser from redux", currentUser);

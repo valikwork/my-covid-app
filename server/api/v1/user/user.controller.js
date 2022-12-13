@@ -1,36 +1,44 @@
 const UserModel = require("./user.model");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 exports.emailConfirmationCtrl = async (req, res, next) => {
-    try {
-        if(req.query.email_conf_code){
-            const result = jwt.verify(req.query.email_conf_code, process.env.JWT_SECRET);
-            const userExist = await UserModel.exists({_id: result.id});
-            if(userExist){
-                UserModel.findOneAndUpdate({_id: result.id}, {email_verified: true}, {new: true}, (err, doc) => {
-                    if (err) {
-                        res.status(404).send('Something wrong when updating data!');
-                    }
-                    res.send({
-                        message: "Your email has been confirmed",
-                        user: result.id
-                    })
-                })
-            } else {
-                res.status(404).send('This User is not registered');
+  try {
+    if (req.query.email_conf_code) {
+      const result = jwt.verify(
+        req.query.email_conf_code,
+        process.env.JWT_SECRET
+      );
+      const userExist = await UserModel.exists({ _id: result.id });
+      if (userExist) {
+        UserModel.findOneAndUpdate(
+          { _id: result.id },
+          { email_verified: true },
+          { new: true },
+          (err, doc) => {
+            if (err) {
+              res.status(404).send("Something wrong when updating data!");
             }
-        } else {
-            res.status(401).send('No Confirmation Code was presented');
-        }
-    } catch (error) {
-        next(error)
+            res.send({
+              message: "Your email has been confirmed",
+              user: result.id,
+            });
+          }
+        );
+      } else {
+        res.status(404).send("This User is not registered");
+      }
+    } else {
+      res.status(401).send("No Confirmation Code was presented");
     }
-}
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.getUserProfileDataCtrl = async (req, res, next) => {
-    try {
-        res.send(req.user)
-    } catch (error) {
-        next(error)
-    }
-}
+  try {
+    res.send(req.user);
+  } catch (error) {
+    next(error);
+  }
+};

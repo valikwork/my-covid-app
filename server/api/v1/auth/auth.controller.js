@@ -10,7 +10,6 @@ exports.registerUserCtrl = async (req, res, next) => {
       user: user,
     });
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -20,7 +19,6 @@ exports.loginUserCtrl = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await compareUserPassword(email, password);
     req.session.user = user._id;
-    console.log("req.session.user", req.session.user);
     res.send({
       message: "You are logged in",
       user: user._id,

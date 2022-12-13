@@ -53,6 +53,7 @@ export default function LoginForm({ handleClose, open }) {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.user.isLoading);
   const fetchError = useSelector((state) => state.user.error);
+  const loggedUser = useSelector((state) => state.user.currentUser);
 
   const passwordHandler = (value) => {
     setErrors((prevState) => ({
@@ -75,10 +76,13 @@ export default function LoginForm({ handleClose, open }) {
     const isFormValid = formValidation();
     if (isFormValid) {
       const userToSignIn = { email, password };
-      console.log("userToSignIn", userToSignIn);
       dispatch(loginUser(userToSignIn));
     }
   };
+
+  useEffect(() => {
+    if (loggedUser) handleClose();
+  }, [loggedUser, handleClose]);
 
   const formValidation = () => {
     setErrors(noErrorState);
