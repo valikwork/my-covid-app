@@ -15,8 +15,8 @@ import numberWithSpaces from '../../functions/numberWithSpaces'
 import Search from '../../components/Search';
 
 const DataLayout = () =>{
-    const data = useSelector(state => state.data)
-    const dataType = useSelector(state => state.dataType)
+    const data = useSelector(state => state.covid.data)
+    const dataType = useSelector(state => state.covid.dataType)
     const [filteredData, setFilteredData] = useState(data)
     if(dataType === GET_ALL_STATES_DATA){
         data.forEach(each => {
@@ -72,7 +72,7 @@ const DataLayout = () =>{
 function States() {
     
     const dispatch = useDispatch();
-    const isLoading = useSelector(state => state.isLoading)
+    const isLoading = useSelector(state => state.covid.isLoading)
     useEffect(() => {
         dispatch(getAllStatesData())
     }, [dispatch])

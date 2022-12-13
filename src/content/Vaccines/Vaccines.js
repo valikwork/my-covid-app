@@ -4,20 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingAnimation from "../../components/LoadingAnimation";
 import { getAllVaccineData, GET_ALL_VACCINE_DATA } from "../../redux/actions/covidActions";
 import { makeStyles } from '@material-ui/core/styles';
-
+import parse from 'html-react-parser';
 
 const DataLayout = () => {
 
-    const data = useSelector(state => state.data)
-    const dataType = useSelector(state => state.dataType)
-    useEffect(() => {
-        console.log(data);
-    }, [data])
+    const data = useSelector(state => state.covid.data)
+    const dataType = useSelector(state => state.covid.dataType)
 
     if(Object.keys(data).length !== 0 && dataType === GET_ALL_VACCINE_DATA){
 
         return(
-            <Container component={Paper} >
+            <Container component={Paper} style={{ padding: '24px' }} >
                 <Typography variant="h3">Total Candidates: {data.totalCandidates}</Typography>
                 <Typography variant="h6" style={{ marginBottom: "30px" }}>Source: <a target="_blank" href={data.source}>{data.source}</a></Typography>
                 <Typography variant="h4">Phases:</Typography>
@@ -37,7 +34,7 @@ const DataLayout = () => {
                     {data.data.map(e => {
                         return (
                             <Grid item xs={12} style={{ marginBottom: '30px', padding: '15px' }}>
-                                <Paper style={{ padding: '15px 0' }}>
+                                <Paper style={{ padding: '15px' }}>
                                     <Typography variant="h6">Candidate: {e.candidate}</Typography>
                                     <Typography variant="h6">Trial Phase: {e.trialPhase}</Typography>
                                     <Typography variant="h6">Mechanism: {e.mechanism}</Typography>
@@ -73,7 +70,7 @@ const DataLayout = () => {
                                     
                                     
                                     <Typography variant="h6">Details:</Typography>
-                                    <p>{e.details}</p>
+                                    <p>{parse(e.details)}</p>
                                 </Paper>
                             </Grid>
                         )
@@ -91,7 +88,7 @@ const DataLayout = () => {
 export default function Vaccines() {
 
     const dispatch = useDispatch();
-    const isLoading = useSelector(state => state.isLoading)
+    const isLoading = useSelector(state => state.covid.isLoading)
     
     useEffect(() => {
         dispatch(getAllVaccineData())

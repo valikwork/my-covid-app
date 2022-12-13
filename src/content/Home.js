@@ -17,8 +17,8 @@ import NotesIcon from '@material-ui/icons/Notes';
 import numberWithSpaces from '../functions/numberWithSpaces'
 
 const DataLayout = () => {
-    const data = useSelector(state => state.data)
-    const dataType = useSelector(state => state.dataType)
+    const data = useSelector(state => state.covid.data)
+    const dataType = useSelector(state => state.covid.dataType)
     
     if(dataType === GET_ALL_DATA){
         for (let prop in data) {
@@ -165,7 +165,7 @@ const DataLayout = () => {
 
 function Home() {
     const dispatch = useDispatch();
-    const isLoading = useSelector(state => state.isLoading)
+    const isLoading = useSelector(state => state.covid.isLoading)
     
     useEffect(() => {
         dispatch(getAllData())

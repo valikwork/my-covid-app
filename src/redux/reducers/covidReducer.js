@@ -26,7 +26,6 @@ import {
 } from '../actions/covidActions'
 
 const initialState = {
-    saved: {},
     data:{},
     mapInfo: [],
     dataType: '',

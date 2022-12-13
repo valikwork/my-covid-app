@@ -13,8 +13,8 @@ import Map from '../../components/Map'
 const shortid = require('shortid');
 
 const DataLayout = () => {
-    const data = useSelector(state => state.data)
-    const dataType = useSelector(state => state.dataType)
+    const data = useSelector(state => state.covid.data)
+    const dataType = useSelector(state => state.covid.dataType)
     
     if(dataType === GET_ONE_COUNTRY_DATA){
         return (
@@ -50,7 +50,7 @@ const DataLayout = () => {
 function OneCountry() {
     const { name } = useParams();
     const dispatch = useDispatch()
-    const isLoading = useSelector(state => state.isLoading)
+    const isLoading = useSelector(state => state.covid.isLoading)
     
     useEffect(() => {
         dispatch(getOneCountryData(name))

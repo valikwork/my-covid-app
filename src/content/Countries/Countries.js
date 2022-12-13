@@ -16,13 +16,12 @@ import Search from '../../components/Search';
 import Map from '../../components/Map';
 
 const DataLayout = () => {
-    const data = useSelector(state => state.data)
-    const dataType = useSelector(state => state.dataType)
+    const data = useSelector(state => state.covid.data)
+    const dataType = useSelector(state => state.covid.dataType)
     const [filteredData, setFilteredData] = useState(Array.isArray(data) ? [...data] : [])
 
     if(dataType === GET_ALL_COUNTRIES_DATA && Array.isArray(data)){
         data.forEach(each => {
-            console.log(each);
             for (let prop in each) {
                 each[prop] = numberWithSpaces(each[prop])
             }
@@ -76,7 +75,7 @@ const DataLayout = () => {
 export default function Countries() {
 
     const dispatch = useDispatch();
-    const isLoading = useSelector(state => state.isLoading)
+    const isLoading = useSelector(state => state.covid.isLoading)
     useEffect(() => {
         dispatch(getAllCountriesData())
     }, [dispatch])

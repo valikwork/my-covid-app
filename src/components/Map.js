@@ -5,7 +5,7 @@ import numberWithSpaces from '../functions/numberWithSpaces';
 import IconWithText from './IconWithText';
 
 export default function Map({ lat, long, cases, style }) {
-    const mapInfo = useSelector(state => state.mapInfo)
+    const mapInfo = useSelector(state => state.covid.mapInfo)
     const defaultPosition = [51.509865, -0.118092];
     let posToShow;
     if(lat && long){

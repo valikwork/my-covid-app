@@ -98,7 +98,6 @@ export const getOneStateData = (name) => {
         dispatch(getOneStateDataStart())
         axios.get(`${process.env.REACT_APP_API_V3_URL}/states/${name}`)
             .then(res => {
-                console.log('getOneStateData', res.data);
                 delete res.data["state"]
                 dispatch(getOneStateDataSuccess(res.data))
             }).catch(err => {
